@@ -64,9 +64,9 @@ let brushHue;
 let trash, pencil, pen, can;
 let trashW;
 if (yCan > xCan) {
-  trashW = yCan / 18;
+  trashW = yCan / 20;
 } else {
-  trashW = xCan / 25;
+  trashW = xCan / 35;
 }
 
 let weight = 1;
@@ -106,12 +106,6 @@ function setup() {
   );
 
   refresh();
-
-  hueSelect = createSlider(0, 361, 361);
-  hueSelect.position(15, l * 1.75);
-
-  wSelect = createSlider(1, 30, 8);
-  wSelect.position(150, l * 1.75);
 }
 
 function draw() {
@@ -142,9 +136,18 @@ function chooseColors() {
 }
 
 function refresh() {
+  background("white");
+  
+  noStroke()
   fill(backgndCol);
-  rect(0, l * 2.5, xCan, yCan - l * 2.5 - 1);
+  rect(0, l * 1.75, xCan, yCan - l * 1.75 - 50);
   shapes();
+  
+  hueSelect = createSlider(0, 361, 361);
+  hueSelect.position(15, yCan - 15);
+
+  wSelect = createSlider(1, 30, 8);
+  wSelect.position(150, yCan - 15);
 }
 
 function mouseClicked() {
@@ -191,12 +194,8 @@ function mouseClicked() {
   }
 }
 
-function deviceShaken() {
-  refresh();
-}
-
 function mouseDragged() {
-  if (mouseY > l * 2.5) {
+  if (mouseY > l * 1.75 && mouseY < yCan - 50) {
     if (utensil != "can") {
       if (style == "ellipse") {
         drawEll(0, 0, 1);
@@ -311,8 +310,8 @@ function shapes() {
     12
   );
 
-  text("Hue Slider", 15, l * 2.3);
-  text("Width Slider", 150, l * 2.3);
+  text("Hue Slider", 15, yCan - 25);
+  text("Width Slider", 150, yCan - 25);
 }
 
 function calcVel() {
