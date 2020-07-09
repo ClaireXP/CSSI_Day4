@@ -46,6 +46,7 @@
  *    mouseIsPressed
  *    ellipse
  *    line
+ *    noFill
  */
 let xCan = window.innerWidth - 20;
 let yCan = window.innerHeight - 20;
@@ -65,6 +66,8 @@ let style = "";
 
 let l = trashW * 0.9;
 
+let v;
+
 function setup() {
   // Canvas & color settings
   createCanvas(xCan, yCan);
@@ -83,7 +86,6 @@ function draw() {
 
   chooseColors();
   image(trash, (xCan - trashW) / 2, 3, trashW, trashW * 1.2);
-  shapes();
 
   x1 = mouseX;
   y1 = mouseY;
@@ -96,6 +98,7 @@ function chooseColors() {
 
 function refresh() {
   background(backgndCol);
+  shapes();
 }
 
 function mouseClicked() {
@@ -135,6 +138,8 @@ function mouseDragged() {
     dir = 1;
   }
   weight += dir;
+  
+  shapes();
 }
 
 function keyPressed() {
@@ -146,7 +151,12 @@ function keyPressed() {
 function shapes() {
   noFill();
   stroke(0);
+  strokeWeight(1);
   
   ellipse(xCan / 4, trashW * 1.2 - l / 2 - 2, l);
-  rect(3*xCan / 4 - trashW/2, trashW * 1.2 - l / 2 - 2, l);
+  rect(3*xCan/ 4 -trashW/2, 12.5, l);
+}
+
+function calcVel(){
+  v=Math.abs(Math.sqrt((mouseX-x1)^2/(mouseY-y1)^2));
 }
