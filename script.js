@@ -58,7 +58,7 @@ let backgndCol = 95;
 let x1, y1;
 let brushHue;
 
-let trash, pencil, pen;
+let trash, pencil, pen, can;
 let trashW;
 if (yCan > xCan) {
   trashW = yCan / 18;
@@ -96,6 +96,10 @@ function setup() {
     "https://cms.cloudinary.vpsvc.com//image/fetch/q_auto:eco,w_700,f_auto,dpr_auto/https://s3-eu-west-1.amazonaws.com/sitecore-media-bucket/prod%2Fen%2F%7B3D1BD3F1-6E86-40F6-9377-23044E5B9A42%7D"
   );
 
+  can = loadImage(
+    "https://img.pngio.com/can-graffiti-spray-png-image-aerosol-png-239633-pngtube-spray-can-png-920_1361.png"
+  );
+
   refresh();
 }
 
@@ -105,7 +109,8 @@ function draw() {
   chooseColors();
   image(trash, (xCan - trashW) / 2, 3, trashW, trashW * 1.2);
   image(pencil, xCan - trashW - 15, 3, trashW * 1.2, trashW * 1.2);
-  image(pen, xCan - 3*trashW - 15, 3, trashW * 1.2, trashW * 1.2);
+  image(pen, xCan - 3 * trashW - 15, 3, trashW * 1.2, trashW * 1.2);
+  image(can, xCan - 5 * trashW - 15, 3, trashW * 1.2, trashW * 1.2);
 
   x1 = mouseX;
   y1 = mouseY;
@@ -122,9 +127,18 @@ function refresh() {
 }
 
 function mouseClicked() {
-  if (mouseX >= (xCan - trashW) / 2 && mouseX <= (xCan - trashW) / 2 + trashW) {
-    if (mouseY >= 10 && mouseY <= trashW * 1.2 + 10) {
+  if (mouseY >= 3 && mouseY <= 3 + trashW * 1.2) {
+    if (
+      mouseX >= (xCan - trashW) / 2 &&
+      mouseX <= (xCan - trashW) / 2 + trashW
+    ) {
       refresh();
+    }
+    if (mouseX >= xCan - trashW - 15 && mouseX <= xCan - 15) {
+      utensil = "pencil";
+    }
+    if (mouseX >= xCan - 3 * trashW - 15 && mouseX <= xCan - 2 * trashW - 15) {
+      utensil = "pen";
     }
   }
 
@@ -176,11 +190,11 @@ function mouseDragged() {
     line(x1, y1, mouseX, mouseY);
   }
 
-  if(utensil = "pencil"){
+  if (utensil == "pencil") {
     weight = width;
-  }else{
+  } else {
     calcVel();
-    weight = width + Math.abs(width+(width/2 / v);
+    weight = width * 0.5 + Math.abs((2.5 * width) / v);
   }
 
   shapes();
