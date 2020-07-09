@@ -54,12 +54,11 @@ let w = scale / 2;
 
 let backgndCol = 95;
 
-let x1, x2, y1, y2;
-
+let x1, y1;
 let brushHue;
 
 let trash;
-let trashW = yCan / 10;
+let trashW = yCan / 15;
 
 function setup() {
   // Canvas & color settings
@@ -90,6 +89,12 @@ function chooseColors() {
 
 function refresh() {
   background(backgndCol);
+}
+
+function mouseClicked(){
+  if(mouseX >=(xCan - trashW) / 2 && mouseX<=(xCan - trashW) / 2 + trashW){
+    if(mouseY>= )
+  }
 }
 
 function mouseDragged() {
