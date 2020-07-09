@@ -49,7 +49,9 @@
  *    noFill,
  *    square,
  *    triangle,
- *    slider
+ *    slider,
+ *    createSlider,
+ *    text
  */
 let xCan = window.innerWidth - 20;
 let yCan = window.innerHeight - 20;
@@ -76,8 +78,10 @@ let utensil = "";
 let l = trashW * 0.9;
 
 let v;
-
 let width = 8;
+let wSelect;
+
+let hue;
 
 function setup() {
   // Canvas & color settings
@@ -103,8 +107,11 @@ function setup() {
 
   refresh();
   
-  slide = createSlider();
-  slide.position(15, 100);
+  hue = createSlider(0,360);
+  hue.position(15, l*1.75);
+  
+  wSelect = createSlider(1,360);
+  wSelect.position(150, l*1.75);
 }
 
 function draw() {
@@ -126,7 +133,8 @@ function chooseColors() {
 }
 
 function refresh() {
-  background(backgndCol);
+  fill(backgndCol);
+  rect(0,l*2.5, xCan, yCan-l*2.5-1)
   shapes();
 }
 
@@ -173,48 +181,49 @@ function deviceShaken() {
 }
 
 function mouseDragged() {
-  // brushHue = random(255);
-  brushHue += 1;
-  brushHue %= 360;
+  if(mouseY>l*2.5){
+    brushHue += 1;
+    brushHue %= 360;
 
-  if (utensil != "can") {
-    if (style == "ellipse") {
-      drawEll(0,0, 1);
-    } else if (style == "square") {
-      drawSqu(0, 0,1);
-    } else if (style == "triangle") {
-      drawTri(0, 0, 1);
-    } else {
-      drawLine(0,0,weight);
-    }
-  } else {
-    if (style == "ellipse") {
-      for(var i=0; i<5;i++){
-        drawEll(random(-weight,weight), random(-weight,weight), random(3,6));
-      }
-    } else if (style == "square") {
-      for(var i=0; i<5;i++){
-        drawSqu(random(-weight,weight), random(-weight,weight), random(3,6));
-      }
-    } else if (style == "triangle") {
-      for(var i=0; i<5;i++){
-        drawTri(random(-weight,weight), random(-weight,weight), random(3,6));
+    if (utensil != "can") {
+      if (style == "ellipse") {
+        drawEll(0,0, 1);
+      } else if (style == "square") {
+        drawSqu(0, 0,1);
+      } else if (style == "triangle") {
+        drawTri(0, 0, 1);
+      } else {
+        drawLine(0,0,weight);
       }
     } else {
-      for(var i=0; i<5;i++){
-        drawLine(random(-weight,weight),random(-weight,weight), weight/5);
+      if (style == "ellipse") {
+        for(var i=0; i<5;i++){
+          drawEll(random(-weight,weight), random(-weight,weight), random(3,6));
+        }
+      } else if (style == "square") {
+        for(var i=0; i<5;i++){
+          drawSqu(random(-weight,weight), random(-weight,weight), random(3,6));
+        }
+      } else if (style == "triangle") {
+        for(var i=0; i<5;i++){
+          drawTri(random(-weight,weight), random(-weight,weight), random(3,6));
+        }
+      } else {
+        for(var i=0; i<5;i++){
+          drawLine(random(-weight,weight),random(-weight,weight), weight/5);
+        }
       }
     }
-  }
 
-  if (utensil == "pencil") {
-    weight = width;
-  } else {
-    calcVel();
-    weight = width * 0.5 + Math.abs((2.5 * width) / v);
-  }
+    if (utensil == "pencil") {
+      weight = width;
+    } else {
+      calcVel();
+      weight = width * 0.5 + Math.abs((2.5 * width) / v);
+    }
 
-  shapes();
+    shapes();
+  }
 }
 
 function drawEll(o,o2, s) {
@@ -273,6 +282,9 @@ function shapes() {
     (3 * xCan) / 8 - l,
     12
   );
+  
+  text("Hue Slider", 15,l*2.3);
+  text("Width Slider", 150,l*2.3);
 }
 
 function calcVel() {
