@@ -78,7 +78,7 @@ let utensil = "";
 
 let l = trashW * 0.9;
 
-let v;
+let v, vNew;
 let width;
 let wSelect;
 
@@ -112,7 +112,7 @@ function setup() {
 
   wSelect = createSlider(1, 30, 8);
   wSelect.position(150, yCan - 15);
-  
+
   frameRate(60);
 }
 
@@ -132,7 +132,7 @@ function chooseColors() {
   if (hueSelect.value() == 361) {
     brushHue += 1;
     brushHue %= 360;
-    if(brushHue==0){
+    if (brushHue == 0) {
       brushHue++;
     }
   } else {
@@ -196,6 +196,10 @@ function mouseClicked() {
 }
 
 function mouseDragged() {
+  shapes();
+  strokeWeight(weight);
+  chooseColors();
+
   if (mouseY > l * 1.75 && mouseY < yCan - 50) {
     if (utensil != "can") {
       if (style == "ellipse") {
@@ -314,5 +318,6 @@ function shapes() {
 }
 
 function calcVel() {
-  v = Math.abs(Math.sqrt(Math.pow(mouseX - x1, 2) + Math.pow(mouseY - y1, 2)));
+  v = Math.sqrt(Math.pow(mouseX - x1, 2) + Math.pow(mouseY - y1, 2));
+  v = Math.abs(v);
 }
