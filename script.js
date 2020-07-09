@@ -39,15 +39,21 @@
  *    rect,
  *    strokeWeight,
  *    random
+ *    keyCode
+ *    ENTER
+ *    loadImage
+ *    image
  */
 let xCan = window.innerWidth - 20;
 let yCan = window.innerHeight - 20;
 let scale = (xCan * yCan) / 50000;
 let w = scale / 2;
 
+let backgndCol = 95;
+
 let brushHue;
 
-let color;
+let trash;
 
 function setup() {
   // Canvas & color settings
@@ -55,12 +61,15 @@ function setup() {
   colorMode(HSB, 360, 100, 100);
   brushHue = 0;
   strokeWeight(6);
+  
+  trash = loadImage("https://i.pinimg.com/originals/35/d1/f5/35d1f5587444a106bc3932af5646d58e.png");
 
   refresh();
 }
 
 function draw() {
   chooseColors();
+  image(trash, 100,100, scale, scale)
 }
 
 function chooseColors() {
@@ -69,7 +78,7 @@ function chooseColors() {
 }
 
 function refresh() {
-  background(95);
+  background(backgndCol);
 }
 
 function mouseDragged() {
@@ -81,4 +90,10 @@ function mouseDragged() {
 
 function mouseClicked(){
   
+}
+
+function keyPressed(){
+  if(keyCode == ENTER){
+    refresh()
+  }
 }
