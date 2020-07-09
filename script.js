@@ -47,6 +47,7 @@
  *    ellipse
  *    line
  *    noFill
+ *    square
  */
 let xCan = window.innerWidth - 20;
 let yCan = window.innerHeight - 20;
@@ -107,16 +108,12 @@ function mouseClicked() {
       refresh();
     }
   }
-
-  if (mouseX >= xCan / 4 - l / 2 && mouseX <= xCan / 4 + l) {
-    if (mouseY >= trashW * 1.2 - l - 2 && mouseY <= trashW * 1.2 - 2) {
+  
+  if (mouseY >= trashW * 1.2 - l - 2 && mouseY <= trashW * 1.2 - 2) {
+    if (mouseX >= xCan / 4 - l / 2 && mouseX <= xCan / 4 + l /2) {
       style = "ellipse";
-    }
-  }
-
-  if (mouseX >= (3 * xCan) / 4 - l / 2 && mouseX <= xCan / 4 + l / 2) {
-    if (mouseY >= 12.5 && mouseY <= 12.5 + l) {
-      style = "rectangle";
+    } if (mouseX >= 3*xCan/4-l/2 && mouseX<= 3*xCan/4+l/2){
+      style = "square";
     }
   }
 }
@@ -133,9 +130,9 @@ function mouseDragged() {
   if (style == "ellipse") {
     strokeWeight(1);
     ellipse(mouseX, mouseY, weight);
-  } else if (style == "rectangle") {
+  }  else if (style == "square") {
     strokeWeight(1);
-    rect(mouseX, mouseY, weight, weight);
+    square(mouseX, mouseY, weight);
   } else {
     line(x1, y1, mouseX, mouseY);
   }
@@ -158,7 +155,7 @@ function shapes() {
   strokeWeight(1);
 
   ellipse(xCan / 4, trashW * 1.2 - l / 2 - 2, l);
-  rect((3 * xCan) / 4 - l / 2, 12.5, l);
+  rect(3 * xCan / 4 - l / 2, 12.5, l);
 }
 
 function calcVel() {
