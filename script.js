@@ -61,7 +61,7 @@ let trashW = yCan / 18;
 let weight = 1;
 let dir = 1;
 
-let style = "line";
+let style = "";
 
 function setup() {
   // Canvas & color settings
@@ -81,7 +81,8 @@ function draw() {
   
   chooseColors();
   image(trash, (xCan - trashW) / 2, 10, trashW, trashW * 1.2);
-
+  shapes();
+  
   x1 = mouseX;
   y1 = mouseY;
 }
@@ -112,7 +113,10 @@ function mouseDragged() {
   brushHue += 1;
   brushHue %= 360;
   
-  if(style = "line"){
+  if(style == "ellipse"){
+    strokeWeight(1);
+    ellipse(mouseX, mouseY, weight);
+  }else{
     line(x1, y1, mouseX, mouseY);
   }
   
@@ -127,4 +131,8 @@ function keyPressed() {
   if (keyCode == ENTER) {
     refresh();
   }
+}
+
+function shapes(){
+  rect();
 }
