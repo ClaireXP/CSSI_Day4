@@ -39,12 +39,16 @@
  *    rect,
  *    strokeWeight,
  */
+let xCan = window.innerWidth - 20;
+let yCan = window.innerHeight - 20;
+let scale = (xCan * yCan) / 50000;
+let w = scale / 2;
 
 let brushHue;
 
 function setup() {
   // Canvas & color settings
-  createCanvas(300, 300);
+  createCanvas(xCan, yCan);
   colorMode(HSB, 360, 100, 100);
   brushHue = 0;
   strokeWeight(6);
@@ -53,7 +57,7 @@ function setup() {
 function draw() {
   background(95);
   chooseColors();
-  rect(mouseX, mouseY, 15, 15);
+  rect(mouseX, mouseY, scale, scale);
 }
 
 function chooseColors() {
