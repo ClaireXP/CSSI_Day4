@@ -130,15 +130,10 @@ function mouseDragged() {
   } else {
     line(x1, y1, mouseX, mouseY);
   }
-
-  if (weight > 15) {
-    dir = -1;
-  }
-  if (weight < 5) {
-    dir = 1;
-  }
-  weight += dir;
   
+  calcVel();
+  weight = 5-4/v;
+
   shapes();
 }
 
@@ -158,5 +153,5 @@ function shapes() {
 }
 
 function calcVel(){
-  v=Math.abs(Math.sqrt((mouseX-x1)^2/(mouseY-y1)^2));
+  v=Math.abs(Math.sqrt(Math.pow(mouseX-x1,2)/Math.pow(mouseY-y1,2)));
 }
