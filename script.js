@@ -78,7 +78,7 @@ let utensil = "";
 
 let l = trashW * 0.9;
 
-let v, vNew;
+let v;
 let width;
 let wSelect;
 
@@ -124,6 +124,7 @@ function draw() {
 
   x1 = mouseX;
   y1 = mouseY;
+  calcVel();
 
   width = wSelect.value();
 }
@@ -196,10 +197,6 @@ function mouseClicked() {
 }
 
 function mouseDragged() {
-  shapes();
-  strokeWeight(weight);
-  chooseColors();
-
   if (mouseY > l * 1.75 && mouseY < yCan - 50) {
     if (utensil != "can") {
       if (style == "ellipse") {
@@ -253,7 +250,14 @@ function mouseDragged() {
       calcVel();
       weight = width * 0.5 + Math.abs((2.5 * width) / v);
     }
+    shapes();
+    strokeWeight(weight);
+    chooseColors();
   }
+}
+
+function mouseReleased(){
+  width = wSelect.value();
 }
 
 function drawEll(o, o2, s) {
