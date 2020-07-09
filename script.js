@@ -58,7 +58,7 @@ let backgndCol = 95;
 let x1, y1;
 let brushHue;
 
-let trash, pencil;
+let trash, pencil, pen;
 let trashW;
 if (yCan > xCan) {
   trashW = yCan / 18;
@@ -70,10 +70,13 @@ let weight = 1;
 let dir = 1;
 
 let style = "";
+let utensil = "";
 
 let l = trashW * 0.9;
 
 let v;
+
+let width = 8;
 
 function setup() {
   // Canvas & color settings
@@ -86,7 +89,11 @@ function setup() {
   );
 
   pencil = loadImage(
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQHtD5ZG1C9XMF0dFrQ67P9ieqmOYpH2Bun0g&usqp=CAU"
+    "https://images2.minutemediacdn.com/image/upload/c_crop,h_1411,w_2097,x_14,y_0/v1554932488/shape/mentalfloss/istock-172863370.jpg?itok=guoHdz0l"
+  );
+
+  pen = loadImage(
+    "https://cms.cloudinary.vpsvc.com//image/fetch/q_auto:eco,w_700,f_auto,dpr_auto/https://s3-eu-west-1.amazonaws.com/sitecore-media-bucket/prod%2Fen%2F%7B3D1BD3F1-6E86-40F6-9377-23044E5B9A42%7D"
   );
 
   refresh();
@@ -96,6 +103,9 @@ function draw() {
   strokeWeight(weight);
 
   chooseColors();
+  image(trash, (xCan - trashW) / 2, 3, trashW, trashW * 1.2);
+  image(pencil, xCan - trashW - 15, 3, trashW * 1.2, trashW * 1.2);
+  image(pen, xCan - 3*trashW - 15, 3, trashW * 1.2, trashW * 1.2);
 
   x1 = mouseX;
   y1 = mouseY;
@@ -109,7 +119,6 @@ function chooseColors() {
 function refresh() {
   background(backgndCol);
   shapes();
-  image(trash, (xCan - trashW) / 2, 3, trashW, trashW * 1.2);
 }
 
 function mouseClicked() {
@@ -167,11 +176,14 @@ function mouseDragged() {
     line(x1, y1, mouseX, mouseY);
   }
 
-  calcVel();
-  weight = 5 + Math.abs(8 / v);
+  if(utensil = "pencil"){
+    weight = width;
+  }else{
+    calcVel();
+    weight = width + Math.abs(width+(width/2 / v);
+  }
 
   shapes();
-  image(trash, (xCan - trashW) / 2, 3, trashW, trashW * 1.2);
 }
 
 function keyPressed() {
@@ -203,8 +215,6 @@ function shapes() {
     (3 * xCan) / 8 - l,
     12
   );
-
-  //Pencil icon
 }
 
 function calcVel() {
