@@ -49,6 +49,7 @@
  *    noFill,
  *    square,
  *    triangle,
+ *    slider
  */
 let xCan = window.innerWidth - 20;
 let yCan = window.innerHeight - 20;
@@ -101,6 +102,9 @@ function setup() {
   );
 
   refresh();
+  
+  slide = createSlider();
+  slide.position(15, 100);
 }
 
 function draw() {
@@ -181,7 +185,7 @@ function mouseDragged() {
     } else if (style == "triangle") {
       drawTri(0, 0, 1);
     } else {
-      drawLine(0,weight);
+      drawLine(0,0,weight);
     }
   } else {
     if (style == "ellipse") {
@@ -198,7 +202,7 @@ function mouseDragged() {
       }
     } else {
       for(var i=0; i<5;i++){
-        drawLine(random(-weight,weight), weight/2);
+        drawLine(random(-weight,weight),random(-weight,weight), weight/5);
       }
     }
   }
@@ -235,9 +239,9 @@ function drawTri(o, o2, s) {
   );
 }
 
-function drawLine(o,s) {
+function drawLine(o,o2,s) {
   strokeWeight(s)
-  line(x1 + o, y1 + o, mouseX, mouseY);
+  line(x1, y1, mouseX+o, mouseY+o2);
 }
 
 function keyPressed() {
