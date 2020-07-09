@@ -175,25 +175,31 @@ function mouseDragged() {
 
   if (utensil != "can") {
     if (style == "ellipse") {
-      drawEll(0, 1);
+      drawEll(0,0, 1);
     } else if (style == "square") {
-      drawSqu(0, 1);
+      drawSqu(0, 0,1);
     } else if (style == "triangle") {
       drawTri(0, 0, 1);
     } else {
-      drawLine(0);
+      drawLine(0,weight);
     }
   } else {
     if (style == "ellipse") {
       for(var i=0; i<5;i++){
-        drawEll(random(-5,5), 1);
+        drawEll(random(-weight,weight), random(-weight,weight), random(3,6));
       }
     } else if (style == "square") {
-      drawSqu(0, 1);
+      for(var i=0; i<5;i++){
+        drawSqu(random(-weight,weight), random(-weight,weight), random(3,6));
+      }
     } else if (style == "triangle") {
-      drawTri(0, 0, 1);
+      for(var i=0; i<5;i++){
+        drawTri(random(-weight,weight), random(-weight,weight), random(3,6));
+      }
     } else {
-      drawLine(0);
+      for(var i=0; i<5;i++){
+        drawLine(random(-weight,weight), weight/2);
+      }
     }
   }
 
@@ -207,14 +213,14 @@ function mouseDragged() {
   shapes();
 }
 
-function drawEll(o, s) {
+function drawEll(o,o2, s) {
   strokeWeight(1);
-  ellipse(mouseX + o, mouseY + o, weight / s);
+  ellipse(mouseX + o, mouseY + o2, weight / s);
 }
 
-function drawSqu(o, s) {
+function drawSqu(o, o2,s) {
   strokeWeight(1);
-  square(mouseX + o, mouseY + o, weight / s);
+  square(mouseX + o, mouseY + o2, weight / s);
 }
 
 function drawTri(o, o2, s) {
@@ -229,8 +235,9 @@ function drawTri(o, o2, s) {
   );
 }
 
-function drawLine(o) {
-  line(x1 + o, y1 + o, mouseX + o, mouseY + o);
+function drawLine(o,s) {
+  strokeWeight(s)
+  line(x1 + o, y1 + o, mouseX, mouseY);
 }
 
 function keyPressed() {
