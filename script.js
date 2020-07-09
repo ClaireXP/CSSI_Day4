@@ -140,6 +140,9 @@ function mouseClicked() {
     if (mouseX >= xCan - 3 * trashW - 15 && mouseX <= xCan - 2 * trashW - 15) {
       utensil = "pen";
     }
+    if (mouseX >= xCan - 5 * trashW - 15 && mouseX <= xCan - 4 * trashW - 15) {
+      utensil = "can";
+    }
   }
 
   if (mouseY >= trashW * 1.2 - l - 2 && mouseY <= trashW * 1.2 - 2) {
@@ -170,24 +173,28 @@ function mouseDragged() {
   brushHue += 1;
   brushHue %= 360;
 
-  if (style == "ellipse") {
-    strokeWeight(1);
-    ellipse(mouseX, mouseY, weight);
-  } else if (style == "square") {
-    strokeWeight(1);
-    square(mouseX, mouseY, weight);
-  } else if (style == "triangle") {
-    strokeWeight(1);
-    triangle(
-      mouseX - weight / 2,
-      mouseY + weight / 2,
-      mouseX + weight / 2,
-      mouseY + weight / 2,
-      mouseX,
-      mouseY - weight / 2
-    );
+  if (utensil != "can") {
+    if (style == "ellipse") {
+      drawEll(0, 1);
+    } else if (style == "square") {
+      drawSqu(0, 1);
+    } else if (style == "triangle") {
+      drawTri(0, 0, 1);
+    } else {
+      drawLine(0);
+    }
   } else {
-    line(x1, y1, mouseX, mouseY);
+    if (style == "ellipse") {
+      for(var i=0; i<5;i++){
+        drawEll(random(-5,5), 1);
+      }
+    } else if (style == "square") {
+      drawSqu(0, 1);
+    } else if (style == "triangle") {
+      drawTri(0, 0, 1);
+    } else {
+      drawLine(0);
+    }
   }
 
   if (utensil == "pencil") {
@@ -198,6 +205,32 @@ function mouseDragged() {
   }
 
   shapes();
+}
+
+function drawEll(o, s) {
+  strokeWeight(1);
+  ellipse(mouseX + o, mouseY + o, weight / s);
+}
+
+function drawSqu(o, s) {
+  strokeWeight(1);
+  square(mouseX + o, mouseY + o, weight / s);
+}
+
+function drawTri(o, o2, s) {
+  strokeWeight(1);
+  triangle(
+    mouseX - weight / (2 * s) + o,
+    mouseY + weight / (2 * s) + o2,
+    mouseX + weight / (2 * s) + o,
+    mouseY + weight / (2 * s) + o2,
+    mouseX + o,
+    mouseY - weight / (2 * s) + o2
+  );
+}
+
+function drawLine(o) {
+  line(x1 + o, y1 + o, mouseX + o, mouseY + o);
 }
 
 function keyPressed() {
