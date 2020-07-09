@@ -108,9 +108,15 @@ function mouseClicked() {
     }
   }
 
-  if (mouseX >= xCan / 4 - l/2 && mouseX <= xCan / 4 + l) {
+  if (mouseX >= xCan / 4 - l / 2 && mouseX <= xCan / 4 + l) {
     if (mouseY >= trashW * 1.2 - l - 2 && mouseY <= trashW * 1.2 - 2) {
       style = "ellipse";
+    }
+  }
+
+  if (mouseX >= (3 * xCan) / 4 - l / 2 && mouseX <= xCan / 4 + l / 2) {
+    if (mouseY >= 12.5 && mouseY <= 12.5 + l) {
+      style = "rectangle";
     }
   }
 }
@@ -127,12 +133,15 @@ function mouseDragged() {
   if (style == "ellipse") {
     strokeWeight(1);
     ellipse(mouseX, mouseY, weight);
+  } else if (style == "rectangle") {
+    strokeWeight(1);
+    rect(mouseX, mouseY, weight, weight);
   } else {
     line(x1, y1, mouseX, mouseY);
   }
 
   calcVel();
-  weight = 10 - Math.abs(v);
+  weight = 5 + Math.abs(8 / v);
 
   shapes();
 }
