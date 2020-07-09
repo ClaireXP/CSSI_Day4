@@ -49,8 +49,6 @@
  */
 let xCan = window.innerWidth - 20;
 let yCan = window.innerHeight - 20;
-let scale = (xCan * yCan) / 50000;
-let w = scale / 2;
 
 let backgndCol = 95;
 
@@ -58,14 +56,18 @@ let x1, y1;
 let brushHue;
 
 let trash;
-let trashW = yCan / 15;
+let trashW = yCan / 18;
+
+let weight = 1;
+let dir = 1;
+
+let style = "line";
 
 function setup() {
   // Canvas & color settings
   createCanvas(xCan, yCan);
   colorMode(HSB, 360, 100, 100);
   brushHue = 0;
-  strokeWeight(6);
 
   trash = loadImage(
     "https://lh3.googleusercontent.com/proxy/NJIcL_Jso-caTKKgaCs-nRhYdUlg-eRy7-JLY4BUXjx2UjebeYSXKh-Hv_xLm5-79lzSdy95QGhtV3JCoKYSphhz1wATFjNgciMyICbSf16bRwCu0qaNrDBX6E3-OdlAKtTdxvaEBbJe0fYgZSZtbnrv8AthHGsQ8kY4jQgsMeGlPUeVbUU"
@@ -75,6 +77,8 @@ function setup() {
 }
 
 function draw() {
+  strokeWeight(weight);
+  
   chooseColors();
   image(trash, (xCan - trashW) / 2, 10, trashW, trashW * 1.2);
 
@@ -91,18 +95,32 @@ function refresh() {
   background(backgndCol);
 }
 
-function mouseClicked(){
-  if(mouseX >=(xCan - trashW) / 2 && mouseX<=(xCan - trashW) / 2 + trashW){
-    if(mouseY>= )
+function mouseClicked() {
+  if (mouseX >= (xCan - trashW) / 2 && mouseX <= (xCan - trashW) / 2 + trashW) {
+    if (mouseY >= 10 && mouseY <= trashW * 1.2 + 10) {
+      refresh();
+    }
   }
+}
+
+function deviceShaken(){
+  refresh();
 }
 
 function mouseDragged() {
   // brushHue = random(255);
   brushHue += 1;
   brushHue %= 360;
-
-  line(x1, y1, mouseX, mouseY);
+  
+  if(style = "line"){
+    line(x1, y1, mouseX, mouseY);
+  }
+  
+  if(weight>15){
+    dir = -1;
+  }if(weight<5){
+    dir = 1;
+  }weight+=dir;
 }
 
 function keyPressed() {
