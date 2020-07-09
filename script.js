@@ -38,6 +38,7 @@
  *    stroke,
  *    rect,
  *    strokeWeight,
+ *    random
  */
 let xCan = window.innerWidth - 20;
 let yCan = window.innerHeight - 20;
@@ -46,21 +47,38 @@ let w = scale / 2;
 
 let brushHue;
 
+let color;
+
 function setup() {
   // Canvas & color settings
   createCanvas(xCan, yCan);
   colorMode(HSB, 360, 100, 100);
   brushHue = 0;
   strokeWeight(6);
+
+  refresh();
 }
 
 function draw() {
-  background(95);
   chooseColors();
-  rect(mouseX, mouseY, scale, scale);
 }
 
 function chooseColors() {
   stroke(brushHue, 50, 80);
   fill(brushHue, 50, 80);
+}
+
+function refresh() {
+  background(95);
+}
+
+function mouseDragged() {
+  // brushHue = random(255);
+  brushHue += 1;
+  brushHue %= 360;
+  rect(mouseX, mouseY, w, w);
+}
+
+function mouseClicked(){
+  
 }
