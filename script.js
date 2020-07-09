@@ -51,7 +51,8 @@
  *    triangle,
  *    slider,
  *    createSlider,
- *    text
+ *    text,
+ *    frameRate,
  */
 let xCan = window.innerWidth - 20;
 let yCan = window.innerHeight - 20;
@@ -106,12 +107,16 @@ function setup() {
   );
 
   refresh();
+  hueSelect = createSlider(0, 361, 361);
+  hueSelect.position(15, yCan - 15);
+
+  wSelect = createSlider(1, 30, 8);
+  wSelect.position(150, yCan - 15);
+  
+  frameRate(60);
 }
 
 function draw() {
-  strokeWeight(weight);
-
-  chooseColors();
   image(trash, (xCan - trashW) / 2, 3, trashW, trashW * 1.2);
   image(pencil, xCan - trashW - 15, 3, trashW * 1.2, trashW * 1.2);
   image(pen, (7 * xCan) / 8 - trashW - 15, 3, trashW * 1.2, trashW * 1.2);
@@ -127,6 +132,9 @@ function chooseColors() {
   if (hueSelect.value() == 361) {
     brushHue += 1;
     brushHue %= 360;
+    if(brushHue==0){
+      brushHue++;
+    }
   } else {
     brushHue = hueSelect.value();
   }
@@ -137,17 +145,10 @@ function chooseColors() {
 
 function refresh() {
   background("white");
-  
-  noStroke()
+  strokeWeight(0);
   fill(backgndCol);
   rect(0, l * 1.75, xCan, yCan - l * 1.75 - 50);
   shapes();
-  
-  hueSelect = createSlider(0, 361, 361);
-  hueSelect.position(15, yCan - 15);
-
-  wSelect = createSlider(1, 30, 8);
-  wSelect.position(150, yCan - 15);
 }
 
 function mouseClicked() {
@@ -248,8 +249,6 @@ function mouseDragged() {
       calcVel();
       weight = width * 0.5 + Math.abs((2.5 * width) / v);
     }
-
-    shapes();
   }
 }
 
