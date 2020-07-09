@@ -54,12 +54,12 @@ let w = scale / 2;
 
 let backgndCol = 95;
 
-let x1,x2,y1,y2;
+let x1, x2, y1, y2;
 
 let brushHue;
 
 let trash;
-let trashW = scale*5;
+let trashW = yCan / 10;
 
 function setup() {
   // Canvas & color settings
@@ -67,16 +67,18 @@ function setup() {
   colorMode(HSB, 360, 100, 100);
   brushHue = 0;
   strokeWeight(6);
-  
-  trash = loadImage("https://lh3.googleusercontent.com/proxy/NJIcL_Jso-caTKKgaCs-nRhYdUlg-eRy7-JLY4BUXjx2UjebeYSXKh-Hv_xLm5-79lzSdy95QGhtV3JCoKYSphhz1wATFjNgciMyICbSf16bRwCu0qaNrDBX6E3-OdlAKtTdxvaEBbJe0fYgZSZtbnrv8AthHGsQ8kY4jQgsMeGlPUeVbUU");
+
+  trash = loadImage(
+    "https://lh3.googleusercontent.com/proxy/NJIcL_Jso-caTKKgaCs-nRhYdUlg-eRy7-JLY4BUXjx2UjebeYSXKh-Hv_xLm5-79lzSdy95QGhtV3JCoKYSphhz1wATFjNgciMyICbSf16bRwCu0qaNrDBX6E3-OdlAKtTdxvaEBbJe0fYgZSZtbnrv8AthHGsQ8kY4jQgsMeGlPUeVbUU"
+  );
 
   refresh();
 }
 
 function draw() {
   chooseColors();
-  image(trash, 100,100, trashW, trashW*1.2)
-  
+  image(trash, (xCan - trashW) / 2, 10, trashW, trashW * 1.2);
+
   x1 = mouseX;
   y1 = mouseY;
 }
@@ -94,11 +96,12 @@ function mouseDragged() {
   // brushHue = random(255);
   brushHue += 1;
   brushHue %= 360;
+
   line(x1, y1, mouseX, mouseY);
 }
 
-function keyPressed(){
-  if(keyCode == ENTER){
-    refresh()
+function keyPressed() {
+  if (keyCode == ENTER) {
+    refresh();
   }
 }
