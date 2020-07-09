@@ -58,7 +58,12 @@ let x1, y1;
 let brushHue;
 
 let trash;
-let trashW = yCan / 18;
+let trashW;
+if (yCan > xCan) {
+  trashW = yCan / 18;
+} else {
+  trashW = xCan / 18;
+}
 
 let weight = 1;
 let dir = 1;
@@ -108,12 +113,18 @@ function mouseClicked() {
       refresh();
     }
   }
-  
+
   if (mouseY >= trashW * 1.2 - l - 2 && mouseY <= trashW * 1.2 - 2) {
-    if (mouseX >= xCan / 4 - l / 2 && mouseX <= xCan / 4 + l /2) {
+    if (mouseX >= xCan / 8 - l / 2 && mouseX <= xCan / 8 + l / 2) {
       style = "ellipse";
-    } if (mouseX >= 3*xCan/4-l/2 && mouseX<= 3*xCan/4+l/2){
+    }
+    if (mouseX >= (2 * xCan) / 8 - l && mouseX <= (2 * xCan) / 8) {
       style = "square";
+    }
+    if (mouseX >= 12 && mouseX <= l + 12) {
+      style = "line";
+    } if (mouseX >= (3 * xCan) / 8 - l && mouseX <= (3 * xCan) / 8) {
+      style = "triangle";
     }
   }
 }
@@ -130,7 +141,7 @@ function mouseDragged() {
   if (style == "ellipse") {
     strokeWeight(1);
     ellipse(mouseX, mouseY, weight);
-  }  else if (style == "square") {
+  } else if (style == "square") {
     strokeWeight(1);
     square(mouseX, mouseY, weight);
   } else {
@@ -154,8 +165,17 @@ function shapes() {
   stroke(0);
   strokeWeight(1);
 
-  ellipse(xCan / 4, trashW * 1.2 - l / 2 - 2, l);
-  rect(3 * xCan / 4 - l / 2, 12.5, l);
+  //circle icon
+  ellipse(xCan / 8, trashW * 1.2 - l / 2 - 2, l);
+
+  //square icon
+  square(2 * xCan / 8 - l, 12, l);
+
+  //line icon
+  line(12, 12, 12 + l, 12 + l);
+  
+  //triangle icon
+  triangle(3 * xCan / 8 - l, 12, 3 * xCan / 8, 12);
 }
 
 function calcVel() {
