@@ -66,7 +66,7 @@ let trashW;
 if (yCan > xCan) {
   trashW = yCan / 18;
 } else {
-  trashW = xCan / 18;
+  trashW = xCan / 25;
 }
 
 let weight = 1;
@@ -120,8 +120,8 @@ function draw() {
   chooseColors();
   image(trash, (xCan - trashW) / 2, 3, trashW, trashW * 1.2);
   image(pencil, xCan - trashW - 15, 3, trashW * 1.2, trashW * 1.2);
-  image(pen, xCan - 3 * trashW - 15, 3, trashW * 1.2, trashW * 1.2);
-  image(can, xCan - 5 * trashW - 15, 3, trashW * 1.2, trashW * 1.2);
+  image(pen, (7 * xCan) / 8 - trashW - 15, 3, trashW * 1.2, trashW * 1.2);
+  image(can, (6 * xCan) / 8 - trashW - 15, 3, trashW * 1.2, trashW * 1.2);
 
   x1 = mouseX;
   y1 = mouseY;
@@ -136,7 +136,7 @@ function chooseColors() {
   } else {
     brushHue = hueSelect.value();
   }
-  
+
   stroke(brushHue, 50, 80);
   fill(brushHue, 50, 80);
 }
@@ -158,15 +158,21 @@ function mouseClicked() {
     if (mouseX >= xCan - trashW - 15 && mouseX <= xCan - 15) {
       utensil = "pencil";
     }
-    if (mouseX >= xCan - 3 * trashW - 15 && mouseX <= xCan - 2 * trashW - 15) {
+    if (
+      mouseX >= (7 * xCan) / 8 - trashW - 15 &&
+      mouseX <= (7 * xCan) / 8 - 15
+    ) {
       utensil = "pen";
     }
-    if (mouseX >= xCan - 5 * trashW - 15 && mouseX <= xCan - 4 * trashW - 15) {
+    if (
+      mouseX >= (6 * xCan) / 8 - trashW - 15 &&
+      mouseX <= (7 * xCan) / 8 - trashW - 15
+    ) {
       utensil = "can";
     }
   }
 
-  if (mouseY >= trashW * 1.2 - l - 2 && mouseY <= trashW * 1.2 - 2) {
+  if (mouseY >= 12 && mouseY <= 12 + l) {
     if (mouseX >= xCan / 8 - l / 2 && mouseX <= xCan / 8 + l / 2) {
       style = "ellipse";
     }
@@ -287,7 +293,7 @@ function shapes() {
   strokeWeight(1);
 
   //circle icon
-  ellipse(xCan / 8, trashW * 1.2 - l / 2 - 2, l);
+  ellipse(xCan / 8, 12 + l / 2, l);
 
   //square icon
   square((2 * xCan) / 8 - l, 12, l);
