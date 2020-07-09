@@ -38,16 +38,17 @@
  *    stroke,
  *    rect,
  *    strokeWeight,
- *    random
- *    keyCode
- *    ENTER
- *    loadImage
- *    image
- *    mouseIsPressed
- *    ellipse
- *    line
- *    noFill
- *    square
+ *    random,
+ *    keyCode,
+ *    ENTER,
+ *    loadImage,
+ *    image,
+ *    mouseIsPressed,
+ *    ellipse,
+ *    line,
+ *    noFill,
+ *    square,
+ *    triangle,
  */
 let xCan = window.innerWidth - 20;
 let yCan = window.innerHeight - 20;
@@ -57,7 +58,7 @@ let backgndCol = 95;
 let x1, y1;
 let brushHue;
 
-let trash;
+let trash, pencil;
 let trashW;
 if (yCan > xCan) {
   trashW = yCan / 18;
@@ -84,6 +85,10 @@ function setup() {
     "https://lh3.googleusercontent.com/proxy/NJIcL_Jso-caTKKgaCs-nRhYdUlg-eRy7-JLY4BUXjx2UjebeYSXKh-Hv_xLm5-79lzSdy95QGhtV3JCoKYSphhz1wATFjNgciMyICbSf16bRwCu0qaNrDBX6E3-OdlAKtTdxvaEBbJe0fYgZSZtbnrv8AthHGsQ8kY4jQgsMeGlPUeVbUU"
   );
 
+  pencil = loadImage(
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQHtD5ZG1C9XMF0dFrQ67P9ieqmOYpH2Bun0g&usqp=CAU"
+  );
+
   refresh();
 }
 
@@ -91,7 +96,6 @@ function draw() {
   strokeWeight(weight);
 
   chooseColors();
-  image(trash, (xCan - trashW) / 2, 3, trashW, trashW * 1.2);
 
   x1 = mouseX;
   y1 = mouseY;
@@ -105,6 +109,7 @@ function chooseColors() {
 function refresh() {
   background(backgndCol);
   shapes();
+  image(trash, (xCan - trashW) / 2, 3, trashW, trashW * 1.2);
 }
 
 function mouseClicked() {
@@ -123,7 +128,11 @@ function mouseClicked() {
     }
     if (mouseX >= 12 && mouseX <= l + 12) {
       style = "line";
-    } if (mouseX >= (3 * xCan) / 8 - l && mouseX <= (3 * xCan) / 8) {
+    }
+    if (
+      mouseX >= (3 * xCan) / 8 - (3 / 2) * l &&
+      mouseX <= (3 * xCan) / 8 - l / 2
+    ) {
       style = "triangle";
     }
   }
@@ -144,6 +153,16 @@ function mouseDragged() {
   } else if (style == "square") {
     strokeWeight(1);
     square(mouseX, mouseY, weight);
+  } else if (style == "triangle") {
+    strokeWeight(1);
+    triangle(
+      mouseX - weight / 2,
+      mouseY + weight / 2,
+      mouseX + weight / 2,
+      mouseY + weight / 2,
+      mouseX,
+      mouseY - weight / 2
+    );
   } else {
     line(x1, y1, mouseX, mouseY);
   }
@@ -152,6 +171,7 @@ function mouseDragged() {
   weight = 5 + Math.abs(8 / v);
 
   shapes();
+  image(trash, (xCan - trashW) / 2, 3, trashW, trashW * 1.2);
 }
 
 function keyPressed() {
@@ -169,13 +189,22 @@ function shapes() {
   ellipse(xCan / 8, trashW * 1.2 - l / 2 - 2, l);
 
   //square icon
-  square(2 * xCan / 8 - l, 12, l);
+  square((2 * xCan) / 8 - l, 12, l);
 
   //line icon
   line(12, 12, 12 + l, 12 + l);
-  
+
   //triangle icon
-  triangle(3 * xCan / 8 - l, 12, 3 * xCan / 8, 12);
+  triangle(
+    (3 * xCan) / 8 - (3 / 2) * l,
+    12 + l,
+    (3 * xCan) / 8 - (1 / 2) * l,
+    12 + l,
+    (3 * xCan) / 8 - l,
+    12
+  );
+
+  //Pencil icon
 }
 
 function calcVel() {
