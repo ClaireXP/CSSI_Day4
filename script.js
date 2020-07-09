@@ -63,6 +63,8 @@ let dir = 1;
 
 let style = "";
 
+let l = trashW * 0.9;
+
 function setup() {
   // Canvas & color settings
   createCanvas(xCan, yCan);
@@ -78,11 +80,11 @@ function setup() {
 
 function draw() {
   strokeWeight(weight);
-  
+
   chooseColors();
-  image(trash, (xCan - trashW) / 2, 10, trashW, trashW * 1.2);
+  image(trash, (xCan - trashW) / 2, 3, trashW, trashW * 1.2);
   shapes();
-  
+
   x1 = mouseX;
   y1 = mouseY;
 }
@@ -102,9 +104,15 @@ function mouseClicked() {
       refresh();
     }
   }
+
+  if (mouseX >= xCan / 4 - trashW * 1.2 && mouseX <= xCan / 4 + trashW * 1.2) {
+    if (mouseY >= 10 && mouseY <= trashW * 1.2 + 10) {
+      style = "ellipse";
+    }
+  }
 }
 
-function deviceShaken(){
+function deviceShaken() {
   refresh();
 }
 
@@ -112,19 +120,21 @@ function mouseDragged() {
   // brushHue = random(255);
   brushHue += 1;
   brushHue %= 360;
-  
-  if(style == "ellipse"){
+
+  if (style == "ellipse") {
     strokeWeight(1);
     ellipse(mouseX, mouseY, weight);
-  }else{
+  } else {
     line(x1, y1, mouseX, mouseY);
   }
-  
-  if(weight>15){
+
+  if (weight > 15) {
     dir = -1;
-  }if(weight<5){
+  }
+  if (weight < 5) {
     dir = 1;
-  }weight+=dir;
+  }
+  weight += dir;
 }
 
 function keyPressed() {
@@ -133,6 +143,10 @@ function keyPressed() {
   }
 }
 
-function shapes(){
-  rect();
+function shapes() {
+  noFill();
+  stroke(0);
+  
+  ellipse(xCan / 4, trashW * 1.2 - l / 2 - 2, l);
+  rect(3*xCan / 4 - trashW/2, trashW * 1.2 - l / 2 - 2, l);
 }
