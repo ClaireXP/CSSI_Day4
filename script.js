@@ -84,6 +84,13 @@ let wSelect;
 
 let hueSelect;
 
+let offFinger;
+if(xCan<300 || yCan<300){
+  offFinger = trashW;
+}else{
+  offFinger = 5;
+}
+
 function setup() {
   // Canvas & color settings
   createCanvas(xCan, yCan);
@@ -153,43 +160,52 @@ function refresh() {
 }
 
 function mouseClicked() {
-  if (mouseY >= 3 && mouseY <= 3 + trashW * 1.2) {
+  if (mouseY >= 0 && mouseY <= 3 + trashW * 1.2 + offFinger) {
     if (
       mouseX >= (xCan - trashW) / 2 &&
       mouseX <= (xCan - trashW) / 2 + trashW
     ) {
       refresh();
     }
-    if (mouseX >= xCan - trashW - 15 && mouseX <= xCan - 15) {
+    if (
+      mouseX >= xCan - trashW - 15 - offFinger &&
+      mouseX <= xCan - 15 + offFinger
+    ) {
       utensil = "pencil";
     }
     if (
-      mouseX >= (7 * xCan) / 8 - trashW - 15 &&
-      mouseX <= (7 * xCan) / 8 - 15
+      mouseX >= (7 * xCan) / 8 - trashW - 15 - offFinger &&
+      mouseX <= (7 * xCan) / 8 - 15 + offFinger
     ) {
       utensil = "pen";
     }
     if (
-      mouseX >= (6 * xCan) / 8 - trashW - 15 &&
-      mouseX <= (7 * xCan) / 8 - trashW - 15
+      mouseX >= (6 * xCan) / 8 - trashW - 15 - offFinger &&
+      mouseX <= (7 * xCan) / 8 - trashW - 15 + offFinger
     ) {
       utensil = "can";
     }
   }
 
-  if (mouseY >= 12 && mouseY <= 12 + l) {
-    if (mouseX >= xCan / 8 - l / 2 && mouseX <= xCan / 8 + l / 2) {
+  if (mouseY >= 0 && mouseY <= 12 + l + offFinger) {
+    if (
+      mouseX >= xCan / 8 - l / 2 - offFinger &&
+      mouseX <= xCan / 8 + l / 2 + offFinger
+    ) {
       style = "ellipse";
     }
-    if (mouseX >= (2 * xCan) / 8 - l && mouseX <= (2 * xCan) / 8) {
+    if (
+      mouseX >= (2 * xCan) / 8 - l - offFinger &&
+      mouseX <= (2 * xCan) / 8 + offFinger
+    ) {
       style = "square";
     }
-    if (mouseX >= 12 && mouseX <= l + 12) {
+    if (mouseX >= 12 - offFinger && mouseX <= l + 12 + offFinger) {
       style = "line";
     }
     if (
-      mouseX >= (3 * xCan) / 8 - (3 / 2) * l &&
-      mouseX <= (3 * xCan) / 8 - l / 2
+      mouseX >= (3 * xCan) / 8 - (3 / 2) * l - offFinger &&
+      mouseX <= (3 * xCan) / 8 - l / 2 + offFinger
     ) {
       style = "triangle";
     }
@@ -256,7 +272,7 @@ function mouseDragged() {
   }
 }
 
-function mouseReleased(){
+function mouseReleased() {
   width = wSelect.value();
 }
 
