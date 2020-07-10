@@ -54,6 +54,7 @@
  *    text,
  *    frameRate,
  */
+
 let xCan = window.innerWidth - 20;
 let yCan = window.innerHeight - 20;
 
@@ -63,12 +64,10 @@ let x1, y1;
 let brushHue;
 
 let trash, pencil, pen, can;
+
 let trashW;
-if (yCan > xCan) {
-  trashW = yCan / 20;
-} else {
-  trashW = xCan / 35;
-}
+if (yCan > xCan) trashW = yCan / 20;
+else trashW = xCan / 35;
 
 let weight = 1;
 let dir = 1;
@@ -85,9 +84,9 @@ let wSelect;
 let hueSelect;
 
 let offFinger;
-if(xCan<300 || yCan<300){
+if (xCan < 300 || yCan < 300) {
   offFinger = trashW;
-}else{
+} else {
   offFinger = 5;
 }
 
@@ -136,16 +135,15 @@ function draw() {
   width = wSelect.value();
 }
 
+
+//Created functions
 function chooseColors() {
   if (hueSelect.value() == 361) {
     brushHue += 1;
     brushHue %= 360;
-    if (brushHue == 0) {
-      brushHue++;
-    }
-  } else {
-    brushHue = hueSelect.value();
-  }
+
+    if (brushHue == 0) brushHue++;
+  } else brushHue = hueSelect.value();
 
   stroke(brushHue, 50, 80);
   fill(brushHue, 50, 80);
@@ -161,69 +159,53 @@ function refresh() {
 
 function mouseClicked() {
   if (mouseY >= 0 && mouseY <= 3 + trashW * 1.2 + offFinger) {
-    if (
-      mouseX >= (xCan - trashW) / 2 &&
-      mouseX <= (xCan - trashW) / 2 + trashW
-    ) {
+    if (mouseX >= (xCan - trashW) / 2 && mouseX <= (xCan - trashW) / 2 + trashW)
       refresh();
-    }
     if (
       mouseX >= xCan - trashW - 15 - offFinger &&
       mouseX <= xCan - 15 + offFinger
-    ) {
+    )
       utensil = "pencil";
-    }
     if (
       mouseX >= (7 * xCan) / 8 - trashW - 15 - offFinger &&
       mouseX <= (7 * xCan) / 8 - 15 + offFinger
-    ) {
+    )
       utensil = "pen";
-    }
     if (
       mouseX >= (6 * xCan) / 8 - trashW - 15 - offFinger &&
       mouseX <= (7 * xCan) / 8 - trashW - 15 + offFinger
-    ) {
+    )
       utensil = "can";
-    }
   }
 
   if (mouseY >= 0 && mouseY <= 12 + l + offFinger) {
     if (
       mouseX >= xCan / 8 - l / 2 - offFinger &&
       mouseX <= xCan / 8 + l / 2 + offFinger
-    ) {
+    )
       style = "ellipse";
-    }
     if (
       mouseX >= (2 * xCan) / 8 - l - offFinger &&
       mouseX <= (2 * xCan) / 8 + offFinger
-    ) {
+    )
       style = "square";
-    }
-    if (mouseX >= 12 - offFinger && mouseX <= l + 12 + offFinger) {
+    if (mouseX >= 12 - offFinger && mouseX <= l + 12 + offFinger)
       style = "line";
-    }
     if (
       mouseX >= (3 * xCan) / 8 - (3 / 2) * l - offFinger &&
       mouseX <= (3 * xCan) / 8 - l / 2 + offFinger
-    ) {
+    )
       style = "triangle";
-    }
   }
 }
 
 function mouseDragged() {
   if (mouseY > l * 1.75 && mouseY < yCan - 50) {
     if (utensil != "can") {
-      if (style == "ellipse") {
-        drawEll(0, 0, 1);
-      } else if (style == "square") {
-        drawSqu(0, 0, 1);
-      } else if (style == "triangle") {
-        drawTri(0, 0, 1);
-      } else {
-        drawLine(0, 0, weight);
-      }
+      if (style == "ellipse") drawEll(0, 0, 1);
+      else if (style == "square") drawSqu(0, 0, 1);
+      else if (style == "triangle") drawTri(0, 0, 1);
+      else drawLine(0, 0, weight);
     } else {
       if (style == "ellipse") {
         for (var i = 0; i < 5; i++) {
@@ -260,12 +242,12 @@ function mouseDragged() {
       }
     }
 
-    if (utensil == "pencil") {
-      weight = width;
-    } else {
+    if (utensil == "pencil") weight = width;
+    else {
       calcVel();
       weight = width * 0.5 + Math.abs((2.5 * width) / v);
     }
+
     shapes();
     strokeWeight(weight);
     chooseColors();
@@ -304,9 +286,7 @@ function drawLine(o, o2, s) {
 }
 
 function keyPressed() {
-  if (keyCode == ENTER) {
-    refresh();
-  }
+  if (keyCode == ENTER) refresh();
 }
 
 function shapes() {
